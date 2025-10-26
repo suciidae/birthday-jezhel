@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday, Jezhel!</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="icon.jpg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fleur+De+Leah&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="main">
+      <p class="header">Happy 18th Birthday, Jezhel!</p>
+
+      <div class="container">
+        <img id="slide-img" src="pic 1.jpg" alt="slide" />
+        <button class="slide-btn" id="prev">«</button>
+        <button class="slide-btn" id="next">»</button>
+      </div>
+
+      <audio id="music" src="music.mp3" loop></audio>
+      <button id="play-btn" class="play-btn">
+        double tap mo raw sabi ni lord
+      </button>
+      <div id="volume-reminder">
+         Please turn your volume to full!
+      </div>
+
+      <div class="letter">
+        <p>
+          Happy birthday, jezhel! I don't know what to say omg. Turning 18 is
+          the first big step, it opens bigger responsibilities and endless
+          opportunities. I know it might feel overwhelming at times, but I also
+          know na kaya mo yan, sus ikaw pa.
+        </p>
+        <p>
+          okay so, first of all, I just want to thank you for being an amazing
+          friend. through the laughs, late night talks natin, mga jokes na pag
+          nailabas maca-cancel tayo🥺💔, and even the difficult times, nandyan
+          ka palagi. you've been more than just a friend, you're like a best
+          friend to me EMEEEE HAHAHAHHA. you're like a family to me na.
+        </p>
+        <p>
+          Nasa adulthood stage ka na, but no matter how grown you get, you'll
+          always be the jezhel I know—funny, kind, and strong person. I'm so
+          proud of the person you've become. I wish you all the best, I wish for
+          you to find genuine happiness in every corner of your life. I pray
+          that all your dreams come true and that you never lose your light,
+          even in the darkest moments.
+        </p>
+        <p>
+          Continue to dream big and don't ever doubt yourself kasi nandito lang
+          ako, mga kaibigan mo, and si trixie, to support you and cheer you on
+          palagi. through ups and downs, I'll always be by your side. I'm so
+          excited to see what's ahead for you. Happy birthday ulit! love kita te
+          like totoo like sofer ganon.
+        </p>
+        <p>
+          yours truly, <br />
+          MM
+        </p>
+      </div>
+
+      <h2>Scratch this!</h2>
+      <div id="scratch">
+        <img id="hiddenImage" src="pic surprise.jpg" alt="pic surprise" />
+
+        <canvas id="cover" width="300" height="200"></canvas>
+      </div>
+
+      <h2>How Well Do You Know <span id="herName">Jezhel</span>?</h2>
+
+      <div id="quiz">
+        <div class="question">
+          <p>1. Which chore do Jezhel hate doing the most?</p>
+          <input type="radio" name="q1" value="a" /> Washing the dishes<br />
+          <input type="radio" name="q1" value="b" /> Doing the laundry<br />
+          <input type="radio" name="q1" value="c" /> Iron the clothes<br />
+        </div>
+
+        <div class="question">
+          <p>2. Is Jezhel right or left-handed?</p>
+          <input type="radio" name="q2" value="a" /> Right-handed<br />
+          <input type="radio" name="q2" value="b" /> Left-handed<br />
+        </div>
+
+        <div class="question">
+          <p>3. What’s her middle name?</p>
+          <input type="radio" name="q3" value="a" /> Agustin<br />
+          <input type="radio" name="q3" value="b" /> Alcantara<br />
+          <input type="radio" name="q3" value="c" /> Anchenta<br />
+        </div>
+
+        <div class="question">
+          <p>4. What is her nickname?</p>
+          <input type="radio" name="q4" value="a" /> Mj<br />
+          <input type="radio" name="q4" value="b" /> Maria<br />
+          <input type="radio" name="q4" value="c" /> Ganda<br />
+        </div>
+
+        <div class="question">
+          <p>5. Do she prefer to bake or cook?</p>
+          <input type="radio" name="q5" value="a" /> Bake<br />
+          <input type="radio" name="q5" value="b" /> Cook<br />
+        </div>
+
+        <button onclick="checkAnswers()" class="submit-button">Submit</button>
+        <p id="result"></p>
+      </div>
+
+      <footer>created by one of your day onez, MM</footer>
+    </div>
+  </body>
+
+  <script>
+    const images = [
+      "pic 1.jpg",
+      "pic 2.jpg",
+      "pic 3.jpg",
+      "pic 4.jpg",
+      "pic 5.jpg",
+      "pic 6.jpg",
+      "pic 7.jpg",
+      "pic 8.jpg",
+    ];
+
+    let current = 0;
+    const slideImg = document.getElementById("slide-img");
+
+    function showImage(index) {
+      slideImg.classList.remove("fade");
+      void slideImg.offsetWidth;
+      slideImg.src = images[index];
+      slideImg.classList.add("fade");
+    }
+
+    document.getElementById("prev").addEventListener("click", () => {
+      current = (current - 1 + images.length) % images.length;
+      showImage(current);
+    });
+
+    document.getElementById("next").addEventListener("click", () => {
+      current = (current + 1) % images.length;
+      showImage(current);
+    });
+
+    setInterval(function () {
+      current = (current + 1) % images.length;
+      showImage(current);
+    }, 5000);
+
+    showImage(current);
+
+    window.onload = function () {
+      const savedWishes = JSON.parse(localStorage.getItem("wishes")) || [];
+      savedWishes.forEach((wishText) => {
+        createWishElement(wishText);
+      });
+    };
+
+    const playBtn = document.getElementById("play-btn");
+
+    playBtn.addEventListener("click", function () {
+      const music = document.getElementById("music");
+      if (music) music.loop = true;
+
+      if (playBtn && music) {
+        const updateLabel = () =>
+          (playBtn.textContent = music.paused
+            ? "double tap mo raw sabi ni lord"
+            : "double tap mo raw sabi ni lord");
+        updateLabel();
+
+        playBtn.addEventListener("click", () => {
+          if (music.paused) {
+            music.play().catch(() => {});
+          } else {
+            music.pause();
+          }
+          updateLabel();
+        });
+      }
+    });
+
+    const canvas = document.getElementById("cover");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 10;
+
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      ctx.clearRect(0, 0, rect.width, rect.height);
+      ctx.fillStyle = "#DAAAB9";
+      ctx.fillRect(0, 0, rect.width, rect.height);
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    let isDrawing = false;
+    const radius = 20;
+
+    function getPosFromEvent(e) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
+    }
+
+    function eraseAt(x, y) {
+      ctx.save();
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function onPointerDown(e) {
+      e.preventDefault();
+      isDrawing = true;
+      canvas.setPointerCapture(e.pointerId);
+      const pos = getPosFromEvent(e);
+      eraseAt(pos.x, pos.y);
+    }
+    function onPointerMove(e) {
+      if (!isDrawing) return;
+      e.preventDefault();
+      const pos = getPosFromEvent(e);
+      eraseAt(pos.x, pos.y);
+    }
+    function onPointerUp(e) {
+      isDrawing = false;
+      try {
+        canvas.releasePointerCapture(e.pointerId);
+      } catch (err) {}
+    }
+
+    canvas.addEventListener("pointerdown", onPointerDown, { passive: false });
+    canvas.addEventListener("pointermove", onPointerMove, { passive: false });
+    canvas.addEventListener("pointerup", onPointerUp);
+    canvas.addEventListener("pointercancel", onPointerUp);
+
+    function checkAnswers() {
+      const answers = { q1: "b", q2: "a", q3: "a", q4: "c", q5: "b" };
+      let score = 0;
+      Object.keys(answers).forEach((q) => {
+        const checked = document.querySelector(`input[name=${q}]:checked`);
+        if (checked && checked.value === answers[q]) score++;
+      });
+      document.getElementById(
+        "result"
+      ).textContent = `You got ${score}/5 correct! 🤍`;
+    }
+  </script>
+</html>
